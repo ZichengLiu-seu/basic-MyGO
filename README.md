@@ -27,24 +27,24 @@ Key Word: Virtual Reality, Locomotion, Trajectory Prediction,
 Multitask Learning
 
 ### Model Architecture
-
 <figure>
-    <img src="pic/model architect_vertical.png"/>
+    <img src="pic/model architect_vertical.png" 
+        style="width: 90%; height: auto; margin: 0 auto"/>
 </figure>
 
 ### Example Result
-![example1](pic/participant1_2Dresult.png) ![example2](pic/participant3_2Dresult.png) ![example3](pic/participant4_2Dresult.png)
+Example of the prediction in real-time user study are shown as following:
+<div style="display: flex; justify-content: space-between; width: 100%; margin-bottom:10px">
+  <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+  <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+  <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+</div>
 
-<figure class="half">
-    <img src="pic/participant1_2Dresult.png" />
-    <img src="pic/participant3_2Dresult.png" />
-    <img src="pic/participant4_2Dresult.png" />
-</figure>
-<figure class="half">
-    <img src="pic/participant5_2Dresult.png" width="170"/>
-    <img src="pic/participant8_2Dresult.png" width="170"/>
-    <img src="pic/participant11_2Dresult.png" width="170"/>
-</figure>
+<div style="display: flex; justify-content: space-between; width: 100%;">
+  <img src="pic/participant5_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+  <img src="pic/participant8_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+  <img src="pic/participant11_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+</div>
 
 ### Author
 Liu Zicheng@liuzicheng@seu.edu.cn, Ding Ding@SEU, Li Zhuying@SEU, Shi Chuhan@SEU
