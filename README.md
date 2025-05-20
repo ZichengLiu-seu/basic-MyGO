@@ -1,8 +1,6 @@
 # basic-MyGO
 a PyTorch implement of article "xxxx" in ISMAR 2025
 
-<!-- PROJECT SHIELDS -->
-
 ![teaser image](pic/Teaser Image.png)
 
 ## Context
@@ -35,8 +33,7 @@ Multitask Learning
 </figure>
 
 ### Example Result
-
-<figure>
+<figure class="half">
     <img src="pic/participant1_2Dresult.png" width="170"/>
     <img src="pic/participant3_2Dresult.png" width="170"/>
     <img src="pic/participant4_2Dresult.png" width="170"/>
