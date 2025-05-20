@@ -33,10 +33,14 @@ Multitask Learning
 </figure>
 
 ### Example Result
+![example1](pic/participant1_2Dresult.png) ![example2](pic/participant3_2Dresult.png) ![example3](pic/participant4_2Dresult.png)
+
 <figure class="half">
-    <img src="pic/participant1_2Dresult.png" width="170"/>
-    <img src="pic/participant3_2Dresult.png" width="170"/>
-    <img src="pic/participant4_2Dresult.png" width="170"/>
+    <img src="pic/participant1_2Dresult.png" />
+    <img src="pic/participant3_2Dresult.png" />
+    <img src="pic/participant4_2Dresult.png" />
+</figure>
+<figure class="half">
     <img src="pic/participant5_2Dresult.png" width="170"/>
     <img src="pic/participant8_2Dresult.png" width="170"/>
     <img src="pic/participant11_2Dresult.png" width="170"/>
