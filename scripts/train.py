@@ -5,8 +5,9 @@ import torch
 
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+
 from utils.lossupdate import EpochLoss
-from models.criterion import clsLoss, regLoss, MLTLoss
+from models.criterion import MTLLoss
 
 
 def train_MTL(args, model, train_loader, val_loader, optim, scheduler, earlystop):
@@ -16,7 +17,7 @@ def train_MTL(args, model, train_loader, val_loader, optim, scheduler, earlystop
     val_loss = EpochLoss()
     val_cls_loss = EpochLoss()
     val_reg_loss = EpochLoss()
-    criterion = MLTLoss()
+    criterion = MTLLoss()
 
     for epoch in range(args.epochs):
         train_bar = tqdm(train_loader)

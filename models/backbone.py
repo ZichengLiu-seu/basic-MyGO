@@ -2,9 +2,9 @@ import torch
 import torch.nn as nn
 
 
-class Transformer_BD(nn.Module):
+class MTLModel(nn.Module):
     def __init__(self, input_size=20, hidden_size=64, lstm_hidden_size=64, output_feature=32, num_layer=2, nhead=4):
-        super(Transformer_BD, self).__init__()
+        super(MTLModel, self).__init__()
         self.output_feature = output_feature
         self.hidden_dim = hidden_size
         self.lstm_hidden_size = lstm_hidden_size

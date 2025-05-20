@@ -1,5 +1,4 @@
 import os
-import numpy as np
 import copy
 from typing import Optional, Any, Union, Callable
 
@@ -7,6 +6,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -93,49 +93,4 @@ class CustomizedTransformerEncoderLayer(nn.TransformerEncoderLayer):
         plt.ylabel("Y Position")
         plt.savefig("attention score", bbox_inches='tight', dpi=300)
         plt.close()
-
-
-class CustomizedGQATransformerEncoder(nn.Module):
-    def __init__(
-            self,
-            encoder_layer: "CustomizedGQATransformerEncoderLayer",
-            num_layers: int
-    ) -> None:
-        super().__init__()
-        # self.encoder = nn.TransformerEncoder(encoder_layer, num_layers)
-        self.layers = nn.ModuleList([
-            copy.deepcopy(CustomizedGQATransformerEncoderLayer(
-                d_model=encoder_layer.d_model,
-                nhead=encoder_layer.nhead,
-                dim_feedforward=encoder_layer.dim_feedforward,
-                dropout=encoder_layer.dropout_ratio,
-                layer_index=idx
-            ))
-            for idx in range(num_layers)
-        ])
-
-    def forward(self, x: Tensor, is_causal: bool = True) -> Tensor:
-        for layer in self.layers:
-            x = layer(x, is_causal=is_causal)
-        return x
-
-
-class CustomizedGQATransformerEncoderLayer(GQATransformerEncoderLayer):
-    def __init__(self, d_model: int, nhead: int, dim_feedforward: int = 2048, dropout: float = 0.1,
-                 layer_index: int = 2) -> None:
-        super().__init__(d_model, nhead, kv_heads=4, dim_feedforward=dim_feedforward, dropout=dropout)
-        self.d_model = d_model
-        self.nhead = nhead
-        self.dim_feedforward = dim_feedforward
-        self.dropout_ratio = dropout
-
-        self.layer_index = layer_index
-        self.return_attn = False
-        self.attn_weights = []
-
-    def forward(self, src: Tensor, is_causal: bool = False) -> Tensor:
-        return super().forward(src)
-
-
-
 

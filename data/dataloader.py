@@ -1,11 +1,11 @@
 import os
-import numpy as np
-import pandas as pd
 
 import torch
-from torch.utils.data import Dataset, DataLoader, Subset
+from torch.utils.data import Dataset
 
 from scipy.interpolate import CubicSpline
+import numpy as np
+import pandas as pd
 
 
 def augment_sequence(augment_method, seq):
@@ -29,7 +29,7 @@ def augment_sequence(augment_method, seq):
     return augmented_seq.tolist()
 
 
-class Unimodel_Dataset(Dataset):
+class Locomotion_Dataset(Dataset):
     def __init__(self, root_path, flag='train', interaction_type='Touchpad', seq_len=60, pred_len=5,
                  target='type', scale=True, cols=None):
         self.seq_len = seq_len
