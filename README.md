@@ -1,7 +1,8 @@
 # basic-MyGO
 a PyTorch implement of article "xxxx" in ISMAR 2025
 
-![teaser image](pic/Teaser Image.png)
+![](pic/Teaser Image.png)
+
 
 ## Context
 
