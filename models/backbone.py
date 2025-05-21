@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+from models import CustomizedTransformerEncoderLayer, CustomizedTransformerEncoder
+
 
 class MTLModel(nn.Module):
     def __init__(self, input_size=20, hidden_size=64, lstm_hidden_size=64, output_feature=32, num_layer=2, nhead=4):
@@ -38,3 +40,4 @@ class MTLModel(nn.Module):
         class_output = self.sigmoid(self.classify_head(feature))
         reg_output = self.regression_head(feature)
         return class_output, reg_output
+    

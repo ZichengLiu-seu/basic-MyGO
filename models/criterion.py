@@ -1,12 +1,7 @@
 import logging
 
 import torch
-import torch.nn as nn
-from torch.nn.functional import cross_entropy, softmax, mse_loss, l1_loss, binary_cross_entropy
-from torch import linalg
-
-import numpy as np
-import matplotlib.pyplot as plt
+from torch.nn.functional import mse_loss, binary_cross_entropy
 
 
 class MTLLoss:

@@ -37,3 +37,4 @@ def test_MTL(args, model, test_loader):
 
     model.motion_encoder.transformer_encoder.layers[-1]._att2heatmap()
 
+    return acc, f1, mse, mis

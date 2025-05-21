@@ -36,8 +36,8 @@ Multitask Learning
 Example of the prediction in real-time user study are shown as following:
 <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom:10px">
   <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
-  <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
-  <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+  <img src="pic/participant3_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
+  <img src="pic/participant4_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
 </div>
 
 <div style="display: flex; justify-content: space-between; width: 100%;">

@@ -35,6 +35,7 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
 
         train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
         val_loader = DataLoader(val_data, batch_size=args.batch_size, shuffle=False)
+        test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
 
         model = MTLModel(args)
 
@@ -42,19 +43,15 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1, end_factor=0.5, total_iters=1000)
         early_stop = EarlyStop(patience=args.patience)
 
-        train_and_validate(train_loader, val_loader, model, optimizer, scheduler, early_stop, args)
+        train_MTL(args, model=model, train_loader=train_loader, val_loader=val_loader,
+                  optim=optimizer, scheduler=scheduler, earlystop=early_stop)
 
         del train_loader, train_data
         torch.cuda.empty_cache()
 
-        acc, f1, mse, mis = evaluate_MTL(args, model, val_loader)
+        acc, f1, mse, mis = test_MTL(args, model, test_loader)
         logging.info(
             "--------------Fold {} Evaluating: acc: {:.4f}% f1: {:.4f} mse: {:.4f} mis: {:.4f}--------------"
-            .format(fold + 1, acc, f1, mse, mis))
-
-        acc, f1, mse, mis = evaluate_MTL(args, model, test_dataset)
-        logging.info(
-            "--------------Fold {} Testing: acc: {:.4f}% f1: {:.4f} mse: {:.4f} mis: {:.4f}--------------"
             .format(fold + 1, acc, f1, mse, mis))
 
         ACC.append(acc)
@@ -72,7 +69,6 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
                  "The Average MSE: {:.4f} m^2\n"
                  "The Average MISDist: {:.4f} m"
                  .format(args.learning_rate, avg_ACC * 100, avg_F1, avg_MSE, avg_MIS))
-    test_feature_MTL(args, model, test_dataset)
 
 
 def main():
@@ -102,10 +98,9 @@ def main():
             logging.StreamHandler(sys.stdout)
         ]
     )
-    full_dataset = Unimodel_Dataset(args.root_path, flag='all', interaction_type=args.interaction_type, scale=True)
-    test_data = Unimodel_Dataset(args.root_path, flag='test', interaction_type=args.interaction_type, scale=True)
-    test_loader = DataLoader(test_data, batch_size=args.batch_size, shuffle=False)
-    k_fold_cross_validation(5, full_dataset, test_loader, args)
+    full_dataset = Locomotion_Dataset(args.root_path, flag='all', interaction_type=args.interaction_type, scale=True)
+    test_dataset = Locomotion_Dataset(args.root_path, flag='test', interaction_type=args.interaction_type, scale=True)
+    k_fold_cross_validation(5, full_dataset, test_dataset, args)
 
 
 if __name__ == '__main__':
