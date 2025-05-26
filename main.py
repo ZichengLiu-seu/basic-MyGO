@@ -9,7 +9,7 @@ from transformers import get_linear_schedule_with_warmup
 
 from sklearn.model_selection import KFold
 
-from models import MTLModel
+from models import MTLModel, LSTMModel
 from data import Locomotion_Dataset
 from scripts.train import train_MTL
 from scripts.test import test_MTL
@@ -37,7 +37,10 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
         val_loader = DataLoader(val_data, batch_size=args.batch_size, shuffle=False)
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
 
-        model = MTLModel(args)
+        if args.model_type == 'MTL':
+            model = MTLModel(args)
+        elif args.model_type == 'LSTM':
+            model = LSTMModel(args)
 
         optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1, end_factor=0.5, total_iters=1000)

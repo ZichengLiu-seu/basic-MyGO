@@ -40,4 +40,21 @@ class MTLModel(nn.Module):
         class_output = self.sigmoid(self.classify_head(feature))
         reg_output = self.regression_head(feature)
         return class_output, reg_output
-    
+
+
+class LSTMModel(nn.Module):
+    def __init__(self, input_size=20, hidden_size=64, output_feature=2, num_layer=2):
+        super(LSTMModel, self).__init__()
+        self.bn = nn.BatchNorm1d(input_size)
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layer, dropout=0.3)
+        self.fc = nn.Linear(hidden_size, output_feature)
+        self.proj = nn.Linear
+
+    def forward(self, x):
+        x = x.permute(0, 2, 1)
+        x_normalized = self.bn(x)
+        x_normalized = x_normalized.permute(0, 2, 1)
+
+        lstm_out, _ = self.lstm(x_normalized)
+        output = self.fc(torch.mean(lstm_out, dim=1))
+        return output
