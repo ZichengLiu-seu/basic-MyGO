@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 import sys
 
 import torch.optim as optim
@@ -38,9 +39,9 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
 
         if args.model_type == 'MTL':
-            model = MTLModel(args)
+            model = MTLModel()
         elif args.model_type == 'LSTM':
-            model = LSTMModel(args)
+            model = LSTMModel()
 
         optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1, end_factor=0.5, total_iters=1000)
@@ -85,14 +86,18 @@ def main():
     parser.add_argument('--sup_weight', type=float, required=False, default=0.5)
     parser.add_argument('--interaction_type', type=str, required=True, default='Touchpad')
     parser.add_argument('--model_type', type=str, required=True, default='MTL')
+    parser.add_argument('--process_display', type=bool, required=False, default=False)
 
-    # args = argparse.Namespace(
-    #     root_path='./data', interaction_type='Touchpad', checkpoints_path='checkpoints',
-    #     batch_size=32, epochs=30, learning_rate=5e-5, patience=6, model_type="MTL"
-    # )
-    args = parser.parse_args()
+    args = argparse.Namespace(
+        root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad', checkpoints_path='checkpoints',
+        batch_size=32, epochs=30, learning_rate=5e-5, patience=6, model_type="MTL", process_display=False
+    )
+    # args = parser.parse_args()
 
-    logpath = 'results/{0}/{1}/output.log'.format(args.model_type, args.interaction_type)
+    logpath = 'results/{0}/{1}/'.format(args.model_type, args.interaction_type)
+    if not os.path.exists(logpath):
+        os.makedirs(logpath, exist_ok=True)
+    logpath += 'output.log'
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
@@ -101,8 +106,10 @@ def main():
             logging.StreamHandler(sys.stdout)
         ]
     )
-    full_dataset = Locomotion_Dataset(args.root_path, flag='all', interaction_type=args.interaction_type, scale=True)
-    test_dataset = Locomotion_Dataset(args.root_path, flag='test', interaction_type=args.interaction_type, scale=True)
+    device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda:0')
+    torch.cuda.set_device(device)
+    full_dataset = Locomotion_Dataset(args.root_path, flag='all', interaction_type=args.interaction_type)
+    test_dataset = Locomotion_Dataset(args.root_path, flag='test', interaction_type=args.interaction_type)
     k_fold_cross_validation(5, full_dataset, test_dataset, args)
 
 

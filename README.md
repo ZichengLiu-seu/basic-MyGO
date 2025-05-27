@@ -48,18 +48,11 @@ Example of the prediction in real-time user study are shown as following:
 </div>
 
 ### Author
-Liu Zicheng@liuzicheng@seu.edu.cn, Ding Ding@SEU, Li Zhuying@SEU, Shi Chuhan@SEU
+Liu Zicheng: liuzicheng@seu.edu.cn, Ding Ding@SEU, Li Zhuying@SEU, Shi Chuhan@SEU
 
  *Feel free to issue or contact us if you have any suggestions about this work!*
 
 ### Acknowledge
 
 This work was support by Big Data Computing Center of Southeast University, Nanjing, China
-
-- [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-- [Img Shields](https://shields.io)
-- [Choose an Open Source License](https://choosealicense.com)
-- [GitHub Pages](https://pages.github.com)
-- [Animate.css](https://daneden.github.io/animate.css)
-- [xxxxxxxxxxxxxx](https://connoratherton.com/loaders)
 

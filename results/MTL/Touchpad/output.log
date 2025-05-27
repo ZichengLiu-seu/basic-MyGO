@@ -1,0 +1,135 @@
+2025-06-03 13:19:12,976 - INFO - Fold 1/5
+2025-06-03 13:19:15,590 - INFO - Epoch:0 ; Train Loss:32.0760 ; Val Loss:24.8038
+     Details:
+     Train: Classify Loss:0.6730 ; Regression Loss:35.6021
+     Valid: Classify Loss:0.6773 ; Regression Loss:25.4187
+     Classification Alpha:0.024854
+
+2025-06-03 13:19:22,348 - INFO - Epoch:10 ; Train Loss:10.5567 ; Val Loss:7.6067
+     Details:
+     Train: Classify Loss:0.6496 ; Regression Loss:11.4934
+     Valid: Classify Loss:0.6823 ; Regression Loss:8.1167
+     Classification Alpha:0.242706
+
+2025-06-03 13:19:29,456 - INFO - Epoch:20 ; Train Loss:6.5627 ; Val Loss:4.6158
+     Details:
+     Train: Classify Loss:0.6347 ; Regression Loss:7.3751
+     Valid: Classify Loss:0.6811 ; Regression Loss:5.0103
+     Classification Alpha:0.321822
+
+2025-06-03 13:19:37,087 - INFO - ---------num:315; tp:196; tn:0; precision:0.6222; recall:1.0000---------------------
+2025-06-03 13:19:37,087 - INFO - Learning rate: 5e-05
+The accuracy: 62.2222 %
+The Average F1-score: 0.7671
+The Average MSE: 0.0296 m^2
+The Average MISDist: 0.2127 m
+2025-06-03 13:19:37,314 - INFO - --------------Fold 1 Evaluating: acc: 0.6222% f1: 0.7671 mse: 0.0296 mis: 0.2127--------------
+2025-06-03 13:19:37,314 - INFO - Fold 2/5
+2025-06-03 13:19:38,068 - INFO - Epoch:0 ; Train Loss:30.9806 ; Val Loss:23.0737
+     Details:
+     Train: Classify Loss:0.8100 ; Regression Loss:34.4957
+     Valid: Classify Loss:0.8133 ; Regression Loss:23.7542
+     Classification Alpha:0.029664
+
+2025-06-03 13:19:45,570 - INFO - Epoch:10 ; Train Loss:10.7886 ; Val Loss:7.7322
+     Details:
+     Train: Classify Loss:0.7242 ; Regression Loss:11.7755
+     Valid: Classify Loss:0.7164 ; Regression Loss:8.2813
+     Classification Alpha:0.189923
+
+2025-06-03 13:19:52,695 - INFO - Epoch:20 ; Train Loss:6.7239 ; Val Loss:4.6553
+     Details:
+     Train: Classify Loss:0.6789 ; Regression Loss:7.5674
+     Valid: Classify Loss:0.6809 ; Regression Loss:5.0709
+     Classification Alpha:0.447628
+
+2025-06-03 13:19:59,023 - INFO - ---------num:315; tp:196; tn:0; precision:0.6222; recall:1.0000---------------------
+2025-06-03 13:19:59,023 - INFO - Learning rate: 5e-05
+The accuracy: 62.2222 %
+The Average F1-score: 0.7671
+The Average MSE: 0.0190 m^2
+The Average MISDist: 0.1814 m
+2025-06-03 13:19:59,335 - INFO - --------------Fold 2 Evaluating: acc: 0.6222% f1: 0.7671 mse: 0.0190 mis: 0.1814--------------
+2025-06-03 13:19:59,335 - INFO - Fold 3/5
+2025-06-03 13:20:00,002 - INFO - Epoch:0 ; Train Loss:28.9969 ; Val Loss:20.3204
+     Details:
+     Train: Classify Loss:0.9266 ; Regression Loss:32.4347
+     Valid: Classify Loss:0.9684 ; Regression Loss:21.0769
+     Classification Alpha:0.037624
+
+2025-06-03 13:20:06,722 - INFO - Epoch:10 ; Train Loss:9.9849 ; Val Loss:6.2748
+     Details:
+     Train: Classify Loss:0.8400 ; Regression Loss:11.0763
+     Valid: Classify Loss:0.8358 ; Regression Loss:6.7959
+     Classification Alpha:0.203353
+
+2025-06-03 13:20:13,429 - INFO - Epoch:20 ; Train Loss:6.3274 ; Val Loss:3.7615
+     Details:
+     Train: Classify Loss:0.7402 ; Regression Loss:7.2273
+     Valid: Classify Loss:0.7346 ; Regression Loss:4.1075
+     Classification Alpha:0.305363
+
+2025-06-03 13:20:19,759 - INFO - ---------num:315; tp:196; tn:0; precision:0.6222; recall:1.0000---------------------
+2025-06-03 13:20:19,759 - INFO - Learning rate: 5e-05
+The accuracy: 62.2222 %
+The Average F1-score: 0.7671
+The Average MSE: 0.0221 m^2
+The Average MISDist: 0.2024 m
+2025-06-03 13:20:19,978 - INFO - --------------Fold 3 Evaluating: acc: 0.6222% f1: 0.7671 mse: 0.0221 mis: 0.2024--------------
+2025-06-03 13:20:19,978 - INFO - Fold 4/5
+2025-06-03 13:20:20,683 - INFO - Epoch:0 ; Train Loss:31.3167 ; Val Loss:23.7601
+     Details:
+     Train: Classify Loss:0.8554 ; Regression Loss:35.0191
+     Valid: Classify Loss:0.9148 ; Regression Loss:24.6421
+     Classification Alpha:0.037171
+
+2025-06-03 13:20:27,941 - INFO - Epoch:10 ; Train Loss:11.2716 ; Val Loss:7.9416
+     Details:
+     Train: Classify Loss:0.7683 ; Regression Loss:12.3333
+     Valid: Classify Loss:0.7808 ; Regression Loss:8.5456
+     Classification Alpha:0.219106
+
+2025-06-03 13:20:35,135 - INFO - Epoch:20 ; Train Loss:7.0023 ; Val Loss:4.7797
+     Details:
+     Train: Classify Loss:0.6972 ; Regression Loss:7.8859
+     Valid: Classify Loss:0.7257 ; Regression Loss:5.2147
+     Classification Alpha:0.250370
+
+2025-06-03 13:20:41,869 - INFO - ---------num:315; tp:196; tn:0; precision:0.6222; recall:1.0000---------------------
+2025-06-03 13:20:41,869 - INFO - Learning rate: 5e-05
+The accuracy: 62.2222 %
+The Average F1-score: 0.7671
+The Average MSE: 0.0212 m^2
+The Average MISDist: 0.1877 m
+2025-06-03 13:20:42,091 - INFO - --------------Fold 4 Evaluating: acc: 0.6222% f1: 0.7671 mse: 0.0212 mis: 0.1877--------------
+2025-06-03 13:20:42,091 - INFO - Fold 5/5
+2025-06-03 13:20:42,834 - INFO - Epoch:0 ; Train Loss:30.2991 ; Val Loss:23.4309
+     Details:
+     Train: Classify Loss:0.6441 ; Regression Loss:33.6213
+     Valid: Classify Loss:0.6729 ; Regression Loss:24.0154
+     Classification Alpha:0.025038
+
+2025-06-03 13:20:50,399 - INFO - Epoch:10 ; Train Loss:9.9442 ; Val Loss:7.6271
+     Details:
+     Train: Classify Loss:0.6472 ; Regression Loss:10.8684
+     Valid: Classify Loss:0.7032 ; Regression Loss:8.1930
+     Classification Alpha:0.236032
+
+2025-06-03 13:20:57,616 - INFO - Epoch:20 ; Train Loss:6.2491 ; Val Loss:4.7038
+     Details:
+     Train: Classify Loss:0.6371 ; Regression Loss:7.0686
+     Valid: Classify Loss:0.6851 ; Regression Loss:5.1600
+     Classification Alpha:0.283541
+
+2025-06-03 13:21:04,523 - INFO - ---------num:315; tp:196; tn:0; precision:0.6222; recall:1.0000---------------------
+2025-06-03 13:21:04,523 - INFO - Learning rate: 5e-05
+The accuracy: 62.2222 %
+The Average F1-score: 0.7671
+The Average MSE: 0.0260 m^2
+The Average MISDist: 0.2128 m
+2025-06-03 13:21:04,752 - INFO - --------------Fold 5 Evaluating: acc: 0.6222% f1: 0.7671 mse: 0.0260 mis: 0.2128--------------
+2025-06-03 13:21:04,752 - INFO - Feature_MTL Training Results; Learning rate: 5e-05
+The Average Acc: 62.2222 %
+The Average F1-score: 0.7671
+The Average MSE: 0.0236 m^2
+The Average MISDist: 0.1994 m

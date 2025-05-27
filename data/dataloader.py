@@ -30,23 +30,16 @@ def augment_sequence(augment_method, seq):
 
 
 class Locomotion_Dataset(Dataset):
-    def __init__(self, root_path, flag='train', interaction_type='Touchpad', seq_len=60, pred_len=5,
-                 target='type', scale=True, cols=None):
+    def __init__(self, root_path, flag='train', interaction_type='Touchpad', seq_len=60, pred_len=5):
         self.seq_len = seq_len
         self.pred_len = pred_len
         self.internal = int(self.seq_len / 4)
-        # init
         self.interaction_type = interaction_type
         assert flag in ['train', 'val', 'test', 'all']
         type_map = {'train': 0, 'val': 1, 'test': 2, 'all': 3}
         self.set_type = type_map[flag]
 
-        self.target = target
-        self.scale = scale
-        self.cols = cols
         self.root_path = root_path
-        self.cached_images = {}
-        self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.__read_data__()
 
     def __read_data__(self):

@@ -47,6 +47,7 @@ def route_1d(args, pred_x, pred_y, true_x, true_y):
     if not os.path.exists(path):
         os.mkdir(path)
     fig.savefig(path + '/1d-result.png')
+    plt.close()
 
 
 def route_2d(args, pred_x, pred_y, true_x, true_y):
@@ -66,6 +67,7 @@ def route_2d(args, pred_x, pred_y, true_x, true_y):
     if not os.path.exists(path):
         os.mkdir(path)
     fig.savefig(path + '/2d-result.png')
+    plt.close()
 
 
 def route_3d(args, pred_xs, pred_zs, pred_ys, gt_xs, gt_zs, gt_ys):
@@ -83,3 +85,4 @@ def route_3d(args, pred_xs, pred_zs, pred_ys, gt_xs, gt_zs, gt_ys):
     ax2.set_zlabel('Z Label')
     ax2.set_title('Real_route')
     fig.savefig('results/Sup Weight{}/3d-result.png'.format(args.sup_weight))
+    plt.close()

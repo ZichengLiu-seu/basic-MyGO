@@ -1,1 +1,1 @@
-from dataloader import Locomotion_Dataset
+from .dataloader import Locomotion_Dataset

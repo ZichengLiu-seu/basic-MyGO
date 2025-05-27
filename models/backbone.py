@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from models import CustomizedTransformerEncoderLayer, CustomizedTransformerEncoder
+from .transformer import CustomizedTransformerEncoderLayer, CustomizedTransformerEncoder
 
 
 class MTLModel(nn.Module):
