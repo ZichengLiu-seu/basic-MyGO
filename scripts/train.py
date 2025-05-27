@@ -20,7 +20,12 @@ def train_MTL(args, model, train_loader, val_loader, optim, scheduler, earlystop
     criterion = MTLLoss()
 
     for epoch in range(args.epochs):
-        train_bar = tqdm(train_loader)
+        if args.process_display:
+            train_bar = tqdm(train_loader)
+            val_bar = tqdm(val_loader)
+        else:
+            train_bar = train_loader
+            val_bar = val_loader
         model.zero_grad()
         model.train()
         for train_input in train_bar:
@@ -44,7 +49,6 @@ def train_MTL(args, model, train_loader, val_loader, optim, scheduler, earlystop
         torch.cuda.empty_cache()
         model.eval()
         with torch.no_grad():
-            val_bar = tqdm(val_loader)
             for val_input in val_bar:
                 batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), val_input)
                 pred_cls, pred_reg = model(batch_x)

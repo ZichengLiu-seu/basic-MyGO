@@ -85,6 +85,7 @@ def main():
     parser.add_argument('--sup_weight', type=float, required=False, default=0.5)
     parser.add_argument('--interaction_type', type=str, required=True, default='Touchpad')
     parser.add_argument('--model_type', type=str, required=True, default='MTL')
+    parser.add_argument('--process_display', type=bool, required=False, default=False)
 
     # args = argparse.Namespace(
     #     root_path='./data', interaction_type='Touchpad', checkpoints_path='checkpoints',
