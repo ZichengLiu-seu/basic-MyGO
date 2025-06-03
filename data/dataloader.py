@@ -50,43 +50,42 @@ class Locomotion_Dataset(Dataset):
 
         num_list = os.listdir(os.path.join(self.root_path, 'motion'))
         for number in num_list:
-            if number == '14':
-                file_list = os.listdir(os.path.join(self.root_path, 'motion', number))
-                for file_name in file_list:
-                    if not file_name.endswith('ScenesmoothData.csv'):
-                        continue
-                    if not file_name.startswith(self.interaction_type) and self.interaction_type != 'All':
-                        continue
+            file_list = os.listdir(os.path.join(self.root_path, 'motion', number))
+            for file_name in file_list:
+                if not file_name.endswith('ScenesmoothData.csv'):
+                    continue
+                if not file_name.startswith(self.interaction_type) and self.interaction_type != 'All':
+                    continue
 
-                    df = pd.read_csv(os.path.join(self.root_path, 'motion', number, file_name))
-                    num = int((len(df) - self.pred_len - self.seq_len) / self.internal) + 1
-                    last_column = df.columns[-2]
-                    other_column = df.columns[:-2]
-                    label_column = df.columns[-4:-2]
+                df = pd.read_csv(os.path.join(self.root_path, 'motion', number, file_name))
+                num = int((len(df) - self.pred_len - self.seq_len) / self.internal) + 1
+                last_column = df.columns[-2]
+                other_column = df.columns[:-2]
+                label_column = df.columns[-4:-2]
 
-                    dirt_raw = df.loc[:self.seq_len * num, last_column]
-                    df_raw = df.loc[:self.seq_len * num, other_column]
-                    label_raw = df.loc[:self.seq_len * num, label_column]
+                dirt_raw = df.loc[:self.seq_len * num, last_column]
+                df_raw = df.loc[:self.seq_len * num, other_column]
+                label_raw = df.loc[:self.seq_len * num, label_column]
 
-                    borders1 = [0, (int(num * 0.7) - 1) * self.internal, (int(num * 0.9) - 1) * self.internal, 0]
-                    borders2 = [(int(num * 0.7) - 1) * self.internal + self.pred_len,
-                                (int(num * 0.9) - 1) * self.internal + self.pred_len,
-                                (num - 1) * self.internal + self.pred_len,
-                                (int(num * 0.9) - 1) * self.internal + self.pred_len]
-                    border1 = borders1[self.set_type]
-                    border2 = borders2[self.set_type]
+                borders1 = [0, (int(num * 0.7) - 1) * self.internal, (int(num * 0.9) - 1) * self.internal, 0]
+                borders2 = [(int(num * 0.7) - 1) * self.internal + self.pred_len,
+                            (int(num * 0.9) - 1) * self.internal + self.pred_len,
+                            (num - 1) * self.internal + self.pred_len,
+                            (int(num * 0.9) - 1) * self.internal + self.pred_len]
+                border1 = borders1[self.set_type]
+                border2 = borders2[self.set_type]
 
-                    data = df_raw.values
-                    label = label_raw.values
-                    offset = len(self.data_x)
-                    self.data_x.extend(data[border1:border2])
-                    self.label.extend(label[border1:border2])
-                    self.dirt.extend(dirt_raw.values[border1:border2])
+                data = df_raw.values
+                label = label_raw.values
+                offset = len(self.data_x)
+                self.data_x.extend(data[border1:border2])
+                self.label.extend(label[border1:border2])
+                self.dirt.extend(dirt_raw.values[border1:border2])
 
-                    start_num = len(self.motion_map)
-                    motion_num = int((border2 - border1 - self.seq_len - self.pred_len) / self.internal) + 1
-                    for index in range(motion_num):
-                        self.motion_map.append(('original', index + start_num, offset, start_num))
+                start_num = len(self.motion_map)
+                motion_num = int((border2 - border1 - self.seq_len - self.pred_len) / self.internal) + 1
+                for index in range(motion_num):
+                    self.motion_map.append(('original', index + start_num, offset, start_num))
 
     def __getitem__(self, index):
         data_type, i, offset, start_num = self.motion_map[index]
