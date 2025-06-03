@@ -89,8 +89,9 @@ def main():
     parser.add_argument('--process_display', type=bool, required=False, default=False)
 
     args = argparse.Namespace(
-        root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad', checkpoints_path='checkpoints',
-        batch_size=32, epochs=30, learning_rate=5e-5, patience=6, model_type="MTL", process_display=False
+        root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad',
+        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=5e-5, patience=6, model_type="MTL",
+        process_display=False
     )
     # args = parser.parse_args()
 
