@@ -12,8 +12,8 @@ from sklearn.model_selection import KFold
 
 from models import MTLModel, LSTMModel
 from data import Locomotion_Dataset
-from scripts.train import train_MTL
-from scripts.test import test_MTL
+from scripts.train import train_MTL, train_LSTM
+from scripts.test import test_MTL, test_LSTM
 from utils import EarlyStop
 
 
@@ -43,36 +43,54 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
         elif args.model_type == 'LSTM':
             model = LSTMModel()
 
-        optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
+        # optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
+        optimizer = optim.AdamW(params=model.parameters(), weight_decay=1e-4)
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1, end_factor=0.5, total_iters=1000)
         early_stop = EarlyStop(patience=args.patience)
 
-        train_MTL(args, model=model, train_loader=train_loader, val_loader=val_loader,
-                  optim=optimizer, scheduler=scheduler, earlystop=early_stop)
+        if args.model_type == 'MTL':
+            train_MTL(args, model=model, train_loader=train_loader, val_loader=val_loader,
+                      optim=optimizer, scheduler=scheduler, earlystop=early_stop)
+        elif args.model_type == 'LSTM':
+            train_LSTM(args, model=model, train_loader=train_loader, val_loader=val_loader,
+                       optim=optimizer, scheduler=scheduler, earlystop=early_stop)
 
         del train_loader, train_data
         torch.cuda.empty_cache()
 
-        acc, f1, mse, mis = test_MTL(args, model, test_loader)
-        logging.info(
-            "--------------Fold {} Evaluating: acc: {:.4f}% f1: {:.4f} mse: {:.4f} mis: {:.4f}--------------"
-            .format(fold + 1, acc, f1, mse, mis))
+        if args.model_type == 'MTL':
+            acc, f1, mse, mis = test_MTL(args, model, test_loader)
+            logging.info(
+                "--------------Fold {} Evaluating: acc: {:.4f}% f1: {:.4f} mse: {:.4f} mis: {:.4f}--------------"
+                .format(fold + 1, acc, f1, mse, mis))
+        elif args.model_type == 'LSTM':
+            mse, mis = test_LSTM(args, model, test_loader)
+            logging.info(
+                "--------------Fold {} Evaluating: mse: {:.4f} mis: {:.4f}--------------"
+                .format(fold + 1, mse, mis))
 
-        ACC.append(acc)
-        F1.append(f1)
+        if args.model_type == 'MTL':
+            ACC.append(acc)
+            F1.append(f1)
         MSE.append(mse)
         MIS.append(mis)
 
-    avg_ACC = sum(ACC) / k
-    avg_F1 = sum(F1) / k
     avg_MSE = sum(MSE) / k
     avg_MIS = sum(MIS) / k
-    logging.info("Feature_MTL Training Results; Learning rate: {}\n"
-                 "The Average Acc: {:.4f} %\n"
-                 "The Average F1-score: {:.4f}\n"
-                 "The Average MSE: {:.4f} m^2\n"
-                 "The Average MISDist: {:.4f} m"
-                 .format(args.learning_rate, avg_ACC * 100, avg_F1, avg_MSE, avg_MIS))
+    if args.model_type == 'MTL':
+        avg_ACC = sum(ACC) / k
+        avg_F1 = sum(F1) / k
+        logging.info("Feature_MTL Training Results; Learning rate: {}\n"
+                     "The Average Acc: {:.4f} %\n"
+                     "The Average F1-score: {:.4f}\n"
+                     "The Average MSE: {:.4f} m^2\n"
+                     "The Average MISDist: {:.4f} m"
+                     .format(args.learning_rate, avg_ACC * 100, avg_F1, avg_MSE, avg_MIS))
+    elif args.model_type == "LSTM":
+        logging.info("Feature_MTL Training Results; Learning rate: {}\n"
+                     "The Average MSE: {:.4f} m^2\n"
+                     "The Average MISDist: {:.4f} m"
+                     .format(args.learning_rate,  avg_MSE, avg_MIS))
 
 
 def main():
@@ -90,7 +108,7 @@ def main():
 
     args = argparse.Namespace(
         root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad',
-        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=5e-5, patience=6, model_type="MTL",
+        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=0.003, patience=6, model_type="LSTM",
         process_display=False
     )
     # args = parser.parse_args()
