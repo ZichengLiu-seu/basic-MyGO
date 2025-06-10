@@ -137,6 +137,59 @@ def train_LSTM(args, model, train_loader, val_loader, optim, scheduler, earlysto
     loss_graph(args, train_loss.loss, val_loss.loss, epoch, "total")
 
 
+def train_Reg(args, model, train_loader, val_loader, optim, scheduler, earlystop):
+    train_loss = EpochLoss()
+    val_loss = EpochLoss()
+    criterion = MSELoss()
+    model.cuda()
+
+    for epoch in range(args.epochs):
+        if args.process_display:
+            train_bar = tqdm(train_loader)
+            val_bar = tqdm(val_loader)
+        else:
+            train_bar = train_loader
+            val_bar = val_loader
+        model.zero_grad()
+        model.train()
+        for train_input in train_bar:
+            batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), train_input)
+            pred_reg = model(batch_x)
+            loss = criterion(pred_reg, batch_y)
+
+            train_loss.update(loss.item())
+
+            loss.backward()
+            optim.step()
+            model.zero_grad()
+            scheduler.step()
+        train_loss.record()
+
+        torch.cuda.empty_cache()
+        model.eval()
+        with torch.no_grad():
+            for val_input in val_bar:
+                batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), val_input)
+                pred_reg = model(batch_x)
+                loss = criterion(pred_reg, batch_y)
+
+                val_loss.update(loss.item())
+            val_loss.record()
+
+        torch.cuda.empty_cache()
+        # scheduler.step()
+        if epoch % 10 == 0:
+            logging.info('Epoch:{} ; Train Loss:{:.4f} ; Val Loss:{:.4f}\n'
+                         .format(epoch, train_loss.loss[-1], val_loss.loss[-1]))
+
+        earlystop(val_loss.avg, model, args.checkpoints_path)
+        if earlystop.early_stop:
+            logging.info("EarlyStopping!")
+            break
+
+    loss_graph(args, train_loss.loss, val_loss.loss, epoch, "total")
+
+
 def loss_graph(args, train_loss, val_loss, epoch, name):
     plt.figure()
     plt.plot(range(epoch + 1), train_loss, label='train loss')

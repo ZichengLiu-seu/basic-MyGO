@@ -12,17 +12,20 @@ from sklearn.model_selection import KFold
 
 from models import MTLModel, LSTMModel
 from data import Locomotion_Dataset
+from scripts.modelhandler import MTLHandler, LSTMHandler, RegHandler
 from scripts.train import train_MTL, train_LSTM
 from scripts.test import test_MTL, test_LSTM
 from utils import EarlyStop
 
 
-def train_and_validate(train_loader, val_loader, model, optimizer, scheduler, early_stop, args):
-    train_MTL(args, model=model, train_loader=train_loader, val_loader=val_loader,
-              optim=optimizer, scheduler=scheduler, earlystop=early_stop)
-
-
 def k_fold_cross_validation(k, train_dataset, test_dataset, args):
+    handlers = {
+        'MTL': MTLHandler(args),
+        'LSTM': LSTMHandler(args),
+        'Reg': RegHandler(args)
+    }
+    handler = handlers[args.model_type]
+
     kf = KFold(n_splits=k, shuffle=True, random_state=42)
     ACC = []
     F1 = []
@@ -38,40 +41,28 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
         val_loader = DataLoader(val_data, batch_size=args.batch_size, shuffle=False)
         test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
 
-        if args.model_type == 'MTL':
-            model = MTLModel()
-        elif args.model_type == 'LSTM':
-            model = LSTMModel()
+        model = handler.create_model()
 
         # optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
         optimizer = optim.AdamW(params=model.parameters(), weight_decay=1e-4)
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1, end_factor=0.5, total_iters=1000)
         early_stop = EarlyStop(patience=args.patience)
 
-        if args.model_type == 'MTL':
-            train_MTL(args, model=model, train_loader=train_loader, val_loader=val_loader,
-                      optim=optimizer, scheduler=scheduler, earlystop=early_stop)
-        elif args.model_type == 'LSTM':
-            train_LSTM(args, model=model, train_loader=train_loader, val_loader=val_loader,
-                       optim=optimizer, scheduler=scheduler, earlystop=early_stop)
+        handler.train(model=model, train_loader=train_loader, val_loader=val_loader,
+                      optimizer=optimizer, scheduler=scheduler, early_stop=early_stop)
 
         del train_loader, train_data
         torch.cuda.empty_cache()
 
-        if args.model_type == 'MTL':
-            acc, f1, mse, mis = test_MTL(args, model, test_loader)
-            logging.info(
-                "--------------Fold {} Evaluating: acc: {:.4f}% f1: {:.4f} mse: {:.4f} mis: {:.4f}--------------"
-                .format(fold + 1, acc, f1, mse, mis))
-        elif args.model_type == 'LSTM':
-            mse, mis = test_LSTM(args, model, test_loader)
-            logging.info(
-                "--------------Fold {} Evaluating: mse: {:.4f} mis: {:.4f}--------------"
-                .format(fold + 1, mse, mis))
+        metrics = handler.test(model, test_loader)
+        handler.log_results(metrics, fold)
 
         if args.model_type == 'MTL':
+            acc, f1, mse, mis = metrics
             ACC.append(acc)
             F1.append(f1)
+        else:
+            mse, mis = metrics
         MSE.append(mse)
         MIS.append(mis)
 
@@ -108,7 +99,7 @@ def main():
 
     args = argparse.Namespace(
         root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad',
-        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=0.003, patience=6, model_type="LSTM",
+        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=0.003, patience=6, model_type="Reg",
         process_display=False
     )
     # args = parser.parse_args()
@@ -126,6 +117,7 @@ def main():
         ]
     )
     device = torch.device('cpu' if not torch.cuda.is_available() else 'cuda:0')
+    args.device = device
     torch.cuda.set_device(device)
     full_dataset = Locomotion_Dataset(args.root_path, flag='all', interaction_type=args.interaction_type)
     test_dataset = Locomotion_Dataset(args.root_path, flag='test', interaction_type=args.interaction_type)
