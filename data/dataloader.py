@@ -60,7 +60,8 @@ class Locomotion_Dataset(Dataset):
                 df = pd.read_csv(os.path.join(self.root_path, 'motion', number, file_name))
                 num = int((len(df) - self.pred_len - self.seq_len) / self.internal) + 1
                 last_column = df.columns[-2]
-                other_column = df.columns[:-2]
+                # other_column = df.columns[:-2]
+                other_column = df.columns[:7].union([df.columns[-2]])
                 label_column = df.columns[-4:-2]
 
                 dirt_raw = df.loc[:self.seq_len * num, last_column]

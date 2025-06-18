@@ -43,8 +43,8 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
 
         model = handler.create_model()
 
-        # optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
-        optimizer = optim.AdamW(params=model.parameters(), weight_decay=1e-4)
+        optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate)
+        # optimizer = optim.AdamW(params=model.parameters(), lr=args.learning_rate, weight_decay=1e-4)
         scheduler = optim.lr_scheduler.LinearLR(optimizer, start_factor=1, end_factor=0.5, total_iters=1000)
         early_stop = EarlyStop(patience=args.patience)
 
@@ -77,7 +77,7 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
                      "The Average MSE: {:.4f} m^2\n"
                      "The Average MISDist: {:.4f} m"
                      .format(args.learning_rate, avg_ACC * 100, avg_F1, avg_MSE, avg_MIS))
-    elif args.model_type == "LSTM":
+    else:
         logging.info("Feature_MTL Training Results; Learning rate: {}\n"
                      "The Average MSE: {:.4f} m^2\n"
                      "The Average MISDist: {:.4f} m"

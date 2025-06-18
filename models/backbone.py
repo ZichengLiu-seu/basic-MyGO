@@ -55,12 +55,12 @@ class LSTMModel(nn.Module):
         x_normalized = x_normalized.permute(0, 2, 1)
 
         lstm_out, _ = self.lstm(x_normalized)
-        output = self.fc(lstm_out[:, -1:, :])
+        output = self.fc(lstm_out[:, -1, :])
         return output
 
 
 class RegModel(nn.Module):
-    def __init__(self, input_size=20, hidden_size=64, lstm_hidden_size=64, output_feature=32, num_layer=2, nhead=2):
+    def __init__(self, input_size=8, hidden_size=64, lstm_hidden_size=64, output_feature=32, num_layer=2, nhead=2):
         super(RegModel, self).__init__()
         self.output_feature = output_feature
         self.hidden_dim = hidden_size
