@@ -61,31 +61,31 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
         metrics = handler.test(model, test_loader)
         handler.log_results(metrics, fold)
 
-        if args.model_type == 'MTL':
+        if args.model_type == 'LSTM' or args.model_type == 'Reg':
+            mse, mis = metrics
+        else:
             acc, f1, mse, mis = metrics
             ACC.append(acc)
             F1.append(f1)
-        else:
-            mse, mis = metrics
         MSE.append(mse)
         MIS.append(mis)
 
     avg_MSE = sum(MSE) / k
     avg_MIS = sum(MIS) / k
-    if args.model_type == 'MTL':
+    if args.model_type == 'LSTM' or args.model_type == 'Reg':
+        logging.info("Model Training Results; Learning rate: {}\n"
+                     "The Average MSE: {:.4f} m^2\n"
+                     "The Average MISDist: {:.4f} m"
+                     .format(args.learning_rate, avg_MSE, avg_MIS))
+    else:
         avg_ACC = sum(ACC) / k
         avg_F1 = sum(F1) / k
-        logging.info("Feature_MTL Training Results; Learning rate: {}\n"
+        logging.info("Model Training Results; Learning rate: {}\n"
                      "The Average Acc: {:.4f} %\n"
                      "The Average F1-score: {:.4f}\n"
                      "The Average MSE: {:.4f} m^2\n"
                      "The Average MISDist: {:.4f} m"
                      .format(args.learning_rate, avg_ACC * 100, avg_F1, avg_MSE, avg_MIS))
-    else:
-        logging.info("Feature_MTL Training Results; Learning rate: {}\n"
-                     "The Average MSE: {:.4f} m^2\n"
-                     "The Average MISDist: {:.4f} m"
-                     .format(args.learning_rate,  avg_MSE, avg_MIS))
 
 
 def main():
