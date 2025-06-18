@@ -12,7 +12,7 @@ from sklearn.model_selection import KFold
 
 from models import MTLModel, LSTMModel
 from data import Locomotion_Dataset
-from scripts.modelhandler import MTLHandler, LSTMHandler, RegHandler
+from scripts.modelhandler import *
 from scripts.train import train_MTL, train_LSTM
 from scripts.test import test_MTL, test_LSTM
 from utils import EarlyStop
@@ -22,7 +22,11 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
     handlers = {
         'MTL': MTLHandler(args),
         'LSTM': LSTMHandler(args),
-        'Reg': RegHandler(args)
+        'Reg': RegHandler(args),
+        'LSTMplus': LSTMplusHandler(args),
+        'MTLTrans': MTLTransHandler(args),
+        'MTLLstm': MTLLstmHandler(args),
+        'MTLRev': MTLRevHandler(args)
     }
     handler = handlers[args.model_type]
 

@@ -2,7 +2,7 @@ import logging
 
 from abc import ABC, abstractmethod
 
-from models import MTLModel, LSTMModel, RegModel
+from models import *
 from scripts.train import train_MTL, train_LSTM, train_Reg
 from scripts.test import test_MTL, test_LSTM, test_Reg
 
