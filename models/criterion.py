@@ -59,7 +59,7 @@ class MTLEvaluate:
         self.tn += torch.sum((pred_labels == 0) & (true_labels == 0)).item()
         self.fn += torch.sum((pred_labels == 0) & (true_labels == 1)).item()
 
-        self.imse += mse_loss(pred_reg, batch_y, reduction="sum")
+        self.imse += mse_loss(pred_reg, batch_y)
         self.imis += torch.sum(torch.norm(pred_reg - batch_y))
 
         self.pred.extend(pred_reg[i] for i in range(pred_reg.size(0)))
@@ -94,7 +94,7 @@ class SimpleEvaluate:
     def __call__(self, pred_reg, batch_y):
         self.count += len(pred_reg)
 
-        self.imse += mse_loss(pred_reg, batch_y, reduction="sum")
+        self.imse += mse_loss(pred_reg, batch_y)
         self.imis += torch.sum(torch.norm(pred_reg - batch_y))
 
         self.pred.extend(pred_reg[i] for i in range(pred_reg.size(0)))

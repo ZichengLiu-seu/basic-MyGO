@@ -5,16 +5,13 @@ import sys
 
 import torch.optim as optim
 import torch.cuda
-from torch.utils.data import Dataset, DataLoader, Subset
+from torch.utils.data import DataLoader, Subset
 from transformers import get_linear_schedule_with_warmup
 
 from sklearn.model_selection import KFold
 
-from models import MTLModel, LSTMModel
 from data import Locomotion_Dataset
 from scripts.modelhandler import *
-from scripts.train import train_MTL, train_LSTM
-from scripts.test import test_MTL, test_LSTM
 from utils import EarlyStop
 
 
@@ -103,7 +100,7 @@ def main():
 
     args = argparse.Namespace(
         root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad',
-        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=0.003, patience=6, model_type="Reg",
+        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=0.003, patience=6, model_type="MTL",
         process_display=False
     )
     # args = parser.parse_args()
