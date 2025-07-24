@@ -35,7 +35,7 @@ Multitask Learning
 
 ## Dependencies
 ```bash
-pip isntall -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Example Result
