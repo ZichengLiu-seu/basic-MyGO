@@ -12,7 +12,7 @@ a PyTorch implement of article ***MyGO: Virtual Reality Locomotion Prediction us
 - [Author](#author)
 - [Acknowledge](#acknowledge)
 
-### Abstract
+## Abstract
 
 Locomotion is a fundamental interaction in Virtual Reality (VR). Current locomotion methods, such as redirected walking,
 walkingin-place, and teleportation, make use of limited physical space and interaction mapping. However, there remains
@@ -27,13 +27,18 @@ studies. The source code is available at https://github.com/ZichengLiu-seu/basic
 Key Word: Virtual Reality, Locomotion, Trajectory Prediction,
 Multitask Learning
 
-### Model Architecture
+## Model Architecture
 <figure>
     <img src="pic/model architect_vertical.png" 
         style="width: 90%; height: auto; margin: 0 auto"/>
 </figure>
 
-### Example Result
+## Dependencies
+```bash
+pip isntall -r requirements.txt
+```
+
+## Example Result
 Example of the prediction in real-time user study are shown as following:
 <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom:10px">
   <img src="pic/participant1_2Dresult.png" style="width: 32%; height: auto; object-fit: contain;">
@@ -56,3 +61,16 @@ Liu Zicheng: liuzicheng /at seu.edu.cn, Ding Ding@SEU, Li Zhuying@SEU, Shi Chuha
 
 This work was support by Big Data Computing Center of Southeast University, Nanjing, China
 
+### Citation
+```bigquery
+@inproceedings{LiuISMAR2025,
+  author       = {Zicheng Liu and
+                  Ding Ding and
+                  Zhuying Li and
+                  Chuhan Shi},
+  title        = {MyGO: Virtual Reality Locomotion Prediction using Multitask Learning},
+  booktitle    = {},
+  pages        = {},
+  publisher    = {IEEE},
+  year         = {2025}
+}
