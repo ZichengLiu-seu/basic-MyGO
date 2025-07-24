@@ -1,5 +1,5 @@
 # basic-MyGO
-a PyTorch implement of article "xxxx" in ISMAR 2025
+a PyTorch implement of article ***MyGO: Virtual Reality Locomotion Prediction using Multitask Learning*** in ISMAR 2025
 
 ![](./pic/Teaser%20Image.png)
 
@@ -14,15 +14,15 @@ a PyTorch implement of article "xxxx" in ISMAR 2025
 
 ### Abstract
 
-Locomotion is a fundamental interaction in Virtual Reality (VR).
-Current locomotion methods, such as redirected walking, walkingin-place, and teleportation, make use of limited physical space and
-interaction mapping. However, there remains significant potential
-for improvement, particularly in reducing equipment burden and
-enhancing immersion. To locate these limitations, we rethink the
-procedure of VR walking interaction through the Human Information Processing paradigm. Finding that the peripherals’ requirements and potential conflict in artificially designed interaction mappings are the bottlenecks in bridging intention and action, we developed MyGO, an AI-assisted locomotion prediction method. MyGO
-predicts users’ future trajectories from their subtle movements, collected only by a VR headset, using a multitask learning (MTL)
-model. The proposed model demonstrates competitive results in
-both dataset validation and real-time studies
+Locomotion is a fundamental interaction in Virtual Reality (VR). Current locomotion methods, such as redirected walking,
+walkingin-place, and teleportation, make use of limited physical space and interaction mapping. However, there remains
+significant potential for improvement, particularly in reducing equipment burden and enhancing immersion. To locate
+these limitations, we rethink the procedure of VR walking interaction through the Human Information Processing paradigm.
+Finding that the peripherals’ requirements and potential conflict in artificially designed interaction mappings are the
+bottlenecks in bridging intention and action, we developed MyGO, an AI-assisted locomotion prediction method. MyGO
+predicts users’ future trajectories from their subtle movements, collected only by a VR headset, using a multitask
+learning (MTL) model. The proposed model demonstrates competitive results in both dataset validation and real-time
+studies. The source code is available at https://github.com/ZichengLiu-seu/basic-MyGO
 
 Key Word: Virtual Reality, Locomotion, Trajectory Prediction,
 Multitask Learning
