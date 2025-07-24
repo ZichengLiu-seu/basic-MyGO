@@ -13,6 +13,7 @@ from sklearn.model_selection import KFold
 from data import Locomotion_Dataset
 from scripts.modelhandler import *
 from utils import EarlyStop
+from utils.tool import pth2onnx
 
 
 def k_fold_cross_validation(k, train_dataset, test_dataset, args):
@@ -83,7 +84,7 @@ def k_fold_cross_validation(k, train_dataset, test_dataset, args):
                      "The Average MSE: {:.4f} m^2\n"
                      "The Average MISDist: {:.4f} m"
                      .format(args.learning_rate, avg_ACC * 100, avg_F1, avg_MSE, avg_MIS))
-
+    pth2onnx(args, model)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -100,7 +101,7 @@ def main():
 
     args = argparse.Namespace(
         root_path=r'D:\Working Space\Walk in Mind\Multimodel Contrastive Learning\data', interaction_type='Touchpad',
-        checkpoints_path='checkpoints', batch_size=32, epochs=30, learning_rate=0.003, patience=6, model_type="MTL",
+        checkpoints_path='checkpoints', batch_size=32, epochs=1, learning_rate=0.003, patience=6, model_type="LSTM",
         process_display=False
     )
     # args = parser.parse_args()

@@ -248,7 +248,7 @@ def ablation_on_eye():
         Patch(facecolor=all_bar_color, edgecolor='none'),
         Patch(facecolor=motion_bar_color, edgecolor='none')
         ]
-    plt.legend(bars + line, ['MSE On All feature', 'MSE w/o Gaze Data', 'Proposed. MDE'],
+    plt.legend(bars + line, ['MSE On All feature', 'MSE w/o Gaze Data', 'Proposed. MSE'],
                loc='upper right', bbox_to_anchor=(1, 1))
     plt.savefig("MSE Ablation in Eye")
     plt.close()

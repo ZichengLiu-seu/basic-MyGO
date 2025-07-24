@@ -47,3 +47,35 @@ class EarlyStop:
     def save_checkpoint(self, val_loss, model, path):
         print(f'Validation loss decreased ({self.min_loss:.4f} --> {val_loss:.4f}).  Saving model ...')
         torch.save(model.state_dict(), os.path.join(path, 'checkpoint.pth'))
+
+
+def pth2onnx(args, model):
+    motion = torch.randn(1, 60, 20, dtype=torch.float, device=args.device)
+    if args.model_type == "MTL":
+        torch.onnx.export(model,
+                          motion,
+                          "{}/MTL_{}.onnx".format(args.checkpoints_path, args.interaction_type),
+                          export_params=True,
+                          opset_version=15,
+                          do_constant_folding=True,
+                          input_names=['motion'],
+                          output_names=['cls_output', 'reg_output'],
+                          dynamic_axes={
+                              'motion': {0: 'batch_size'},
+                              'output': {0: 'batch_size'}}
+                          )
+    elif args.model_type == "LSTM":
+        torch.onnx.export(model,
+                          motion,
+                          "{}/LSTM_{}.onnx".format(args.checkpoints_path, args.interaction_type),
+                          export_params=True,
+                          opset_version=15,
+                          do_constant_folding=True,
+                          input_names=['motion'],
+                          output_names=['output'],
+                          dynamic_axes={
+                              'motion': {0: 'batch_size'},
+                              'output': {0: 'batch_size'}}
+                          )
+    else:
+        return
