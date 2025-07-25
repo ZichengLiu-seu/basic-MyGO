@@ -53,7 +53,8 @@ Example of the prediction in real-time user study are shown as following:
 </div>
 
 ### Author
-Liu Zicheng: liuzicheng /at seu.edu.cn, Ding Ding@SEU, Li Zhuying@SEU, Shi Chuhan@SEU
+Liu Zicheng: liuzicheng /at seu.edu.cn, Ding Ding*: dingding-1 /at seu.edu.cn,
+Li Zhuying@SEU, Shi Chuhan@SEU
 
  *Feel free to issue or contact us if you have any suggestions about this work!*
 
