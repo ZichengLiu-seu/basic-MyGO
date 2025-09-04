@@ -73,8 +73,8 @@ This work was support by Big Data Computing Center of Southeast University, Nanj
                   Zhuying Li and
                   Chuhan Shi},
   title        = {MyGO: Virtual Reality Locomotion Prediction using Multitask Learning},
-  booktitle    = {},
+  booktitle    = {2025 IEEE International Symposium on Mixed and Augmented Reality (ISMAR)},
   pages        = {},
-  publisher    = {IEEE},
+  organization    = {IEEE},
   year         = {2025}
 }
