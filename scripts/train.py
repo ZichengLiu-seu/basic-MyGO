@@ -30,13 +30,14 @@ def train_MTL(args, model, train_loader, val_loader, optim, scheduler, earlystop
         model.zero_grad()
         model.train()
         for train_input in train_bar:
+            batch_size = len(train_input[0])
             batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), train_input)
             pred_cls, pred_reg = model(batch_x)
             clsloss, regloss, loss = criterion(pred_cls, pred_reg, batch_dirt, batch_y)
 
-            train_loss.update(loss.item())
-            train_cls_loss.update(clsloss.item())
-            train_reg_loss.update(regloss.item())
+            train_loss.update(loss.item(), batch_size)
+            train_cls_loss.update(clsloss.item(), batch_size)
+            train_reg_loss.update(regloss.item(), batch_size)
 
             criterion.adjust_alpha(clsloss.item(), regloss.item())
 
@@ -51,13 +52,14 @@ def train_MTL(args, model, train_loader, val_loader, optim, scheduler, earlystop
         model.eval()
         with torch.no_grad():
             for val_input in val_bar:
+                batch_size = len(val_input[0])
                 batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), val_input)
                 pred_cls, pred_reg = model(batch_x)
                 clsloss, regloss, loss = criterion(pred_cls, pred_reg, batch_dirt, batch_y)
 
-                val_loss.update(loss.item())
-                val_cls_loss.update(clsloss.item())
-                val_reg_loss.update(regloss.item())
+                val_loss.update(loss.item(), batch_size)
+                val_cls_loss.update(clsloss.item(), batch_size)
+                val_reg_loss.update(regloss.item(), batch_size)
             val_loss.record()
             val_cls_loss.record()
             val_reg_loss.record()
@@ -101,11 +103,12 @@ def train_LSTM(args, model, train_loader, val_loader, optim, scheduler, earlysto
         model.zero_grad()
         model.train()
         for train_input in train_bar:
+            batch_size = len(train_input[0])
             batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), train_input)
             pred_reg = model(batch_x)
             loss = criterion(pred_reg, batch_y)
 
-            train_loss.update(loss.item())
+            train_loss.update(loss.item(), batch_size)
 
             loss.backward()
             optim.step()
@@ -116,11 +119,12 @@ def train_LSTM(args, model, train_loader, val_loader, optim, scheduler, earlysto
         model.eval()
         with torch.no_grad():
             for val_input in val_bar:
+                batch_size = len(val_input[0])
                 batch_x, batch_y, batch_dirt = map(lambda x: x.cuda(), val_input)
                 pred_reg = model(batch_x)
                 loss = criterion(pred_reg, batch_y)
 
-                val_loss.update(loss.item())
+                val_loss.update(loss.item(), batch_size)
             val_loss.record()
 
         torch.cuda.empty_cache()
