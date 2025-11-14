@@ -67,14 +67,16 @@ This work was support by Big Data Computing Center of Southeast University, Nanj
 
 ### Citation
 ```bigquery
-@inproceedings{LiuISMAR2025,
+@inproceedings{ISMAR2025MyGO,
   author       = {Zicheng Liu and
                   Ding Ding and
                   Zhuying Li and
                   Chuhan Shi},
   title        = {MyGO: Virtual Reality Locomotion Prediction using Multitask Learning},
   booktitle    = {2025 IEEE International Symposium on Mixed and Augmented Reality (ISMAR)},
-  pages        = {},
-  organization    = {IEEE},
-  year         = {2025}
+  year         = {2025},
+  volume={},
+  number={},
+  pages={293-303},
+  doi={10.1109/ISMAR67309.2025.00041}
 }
