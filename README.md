@@ -1,5 +1,5 @@
 # basic-MyGO
-a PyTorch implement of article ***MyGO: Virtual Reality Locomotion Prediction using Multitask Learning*** 
+a PyTorch implement of article ***[MyGO: Virtual Reality Locomotion Prediction using Multitask Learning](https://ieeexplore.ieee.org/document/11220283)*** 
 in The IEEE International Symposium on Mixed and Augmented Reality (ISMAR) 2025
 
 ![](./pic/Teaser%20Image.png)
